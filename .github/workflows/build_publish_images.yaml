@@ -17,7 +17,12 @@ jobs:
       - name: Build Example Notebook Images
         run: |
           cd images/example-notebook-servers/
-          sudo apt install make
           make docker-build-all TAG=test
+
+      - name: Publish Example Notebook Images
+        run: |
+          cd images/example-notebook-servers/
+          make docker-push-all TAG=test REGISTRY=domfleischmann
+
 
 
