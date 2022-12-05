@@ -22,15 +22,15 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-            #      - name: Build Example Notebook Images
-            #        run: |
-            #          cd images/example-notebook-servers/
-            #          make docker-build-all TAG=${{ inputs.tag }}
-            #
-            #      - name: Publish Example Notebook Images
-            #        run: |
-            #          cd images/example-notebook-servers/
-            #          make docker-push-all TAG=${{ inputs.tag }} REGISTRY=domfleischmann
+      - name: Build Example Notebook Images
+        run: |
+          cd images/example-notebook-servers/
+          make docker-build-all TAG=${{ inputs.tag }}
+
+      - name: Publish Example Notebook Images
+        run: |
+          cd images/example-notebook-servers/
+          make docker-push-all TAG=${{ inputs.tag }} REGISTRY=domfleischmann
 
       - name: Build Notebook Controller Image
         run: |

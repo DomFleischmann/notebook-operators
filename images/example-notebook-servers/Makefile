@@ -39,7 +39,7 @@ docker-build-all:
 
 docker-push-all:
 	for img in base jupyter jupyter-scipy jupyter-pytorch-full jupyter-pytorch-cuda-full jupyter-tensorflow-full \
-	jupyter-tensorflow-cuda-full ; do \
+	jupyter-tensorflow-cuda-full jupyter-tensorflow; do \
 		docker tag $$img:${TAG} ${REGISTRY}/$$img:${TAG} ; \
 		docker push ${REGISTRY}/$$img:${TAG} ; \
 	done
