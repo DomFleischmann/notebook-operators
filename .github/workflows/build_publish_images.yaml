@@ -22,15 +22,36 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build Example Notebook Images
+            #      - name: Build Example Notebook Images
+            #        run: |
+            #          cd images/example-notebook-servers/
+            #          make docker-build-all TAG=${{ inputs.tag }}
+            #
+            #      - name: Publish Example Notebook Images
+            #        run: |
+            #          cd images/example-notebook-servers/
+            #          make docker-push-all TAG=${{ inputs.tag }} REGISTRY=domfleischmann
+
+      - name: Build Notebook Controller Image
         run: |
-          cd images/example-notebook-servers/
-          make docker-build-all TAG=${{ inputs.tag }}
+          cd images/jupyter-controller/notebook-controller/
+          export IMG=domfleischmann/notebook-controller
+          make docker-build TAG=${{ inputs.tag }}
 
-      - name: Publish Example Notebook Images
+      - name: Publish Notebook Controller Image
         run: |
-          cd images/example-notebook-servers/
-          make docker-push-all TAG=${{ inputs.tag }} REGISTRY=domfleischmann
+          cd images/jupyter-controller/notebook-controller/
+          export IMG=domfleischmann/notebook-controller
+          make docker-push TAG=${{ inputs.tag }}
 
+      - name: Build Notebook UI Image
+        run: |
+          cd images/jupyter-ui/jupyter/
+          export IMG=domfleischmann/jupyter-web-app
+          make docker-build TAG=${{ inputs.tag }}
 
-
+      - name: Publish Notebook UI Image
+        run: |
+          cd images/jupyter-ui/jupyter/
+          export IMG=domfleischmann/jupyter-web-app
+          make docker-push TAG=${{ inputs.tag }}
